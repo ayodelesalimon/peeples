@@ -97,7 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
             separatorBuilder: (context, index) => Divider(
                   color: isThemeBGColor ? Colors.grey : Colors.grey,
                 ),
-            itemCount: list.length));
+            itemCount: list.length),
+    floatingActionButton: FloatingActionButton(onPressed: (){}, child: Icon(Icons.add),),);
   }
 }
 
