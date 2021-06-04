@@ -158,6 +158,17 @@ class _EditContactState extends State<EditContact> {
                 // controller: nameController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
+                   suffixIcon: PopupMenuButton(
+                    icon: const Icon(Icons.arrow_drop_down),
+                    onSelected: (String value){
+
+                    },
+                    itemBuilder: (BuildContext context){
+                      return items.map<PopupMenuItem<String>>((String value){
+                        return PopupMenuItem(child: Text(value), value: value);
+                      }).toList();
+                    },
+                  ),
                   hintText: 'Gender',
                   hintStyle: GoogleFonts.poppins(fontSize: 12.0) ,
                   prefixIcon: Container(
@@ -185,4 +196,5 @@ class _EditContactState extends State<EditContact> {
       ),
     );
   }
+   List<String> items = ['Male', 'female'];
 }
