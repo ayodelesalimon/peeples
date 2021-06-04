@@ -20,6 +20,14 @@ class _EditContactState extends State<EditContact> {
         child: ListView(
           children: [
             Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: CircleAvatar(
+                radius: 36.0,
+                backgroundColor: Colors.grey,
+                child: Icon(Icons.verified_user)
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Column(
                 children: [
