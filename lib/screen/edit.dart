@@ -130,6 +130,14 @@ class _EditContactState extends State<EditContact> {
 
             //forms name
             Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: CircleAvatar(
+                radius: 36.0,
+                backgroundColor: Colors.grey,
+                child: Icon(Icons.verified_user)
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Column(
                 children: [
@@ -262,6 +270,7 @@ class _EditContactState extends State<EditContact> {
                 // controller: nameController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
+<<<<<<< HEAD
                   suffixIcon: PopupMenuButton(
                     icon: const Icon(Icons.arrow_drop_down),
                     onSelected: (String value) {
@@ -269,11 +278,25 @@ class _EditContactState extends State<EditContact> {
                     },
                     itemBuilder: (BuildContext context) {
                       return items.map<PopupMenuItem<String>>((String value) {
+=======
+                   suffixIcon: PopupMenuButton(
+                    icon: const Icon(Icons.arrow_drop_down),
+                    onSelected: (String value){
+
+                    },
+                    itemBuilder: (BuildContext context){
+                      return items.map<PopupMenuItem<String>>((String value){
+>>>>>>> 4d915c4f36bd0434fefc8f7a7b9e4f6c1771f515
                         return PopupMenuItem(child: Text(value), value: value);
                       }).toList();
                     },
                   ),
+<<<<<<< HEAD
                   hintStyle: GoogleFonts.poppins(fontSize: 12.0),
+=======
+                  hintText: 'Gender',
+                  hintStyle: GoogleFonts.poppins(fontSize: 12.0) ,
+>>>>>>> 4d915c4f36bd0434fefc8f7a7b9e4f6c1771f515
                   prefixIcon: Container(
                     padding: const EdgeInsets.only(
                         top: 8.0, bottom: 8, left: 8, right: 24),
@@ -298,4 +321,5 @@ class _EditContactState extends State<EditContact> {
       ),
     );
   }
+   List<String> items = ['Male', 'female'];
 }
