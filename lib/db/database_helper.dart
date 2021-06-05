@@ -44,6 +44,7 @@ class DatabaseHelper {
 
     // Open/create the database at a given path
     var contactDatabase = await openDatabase(path, version: 1, onCreate: _createDb);
+    print('This db is opened officially $contactDatabase');
     return contactDatabase;
   }
 

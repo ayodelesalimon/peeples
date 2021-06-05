@@ -33,6 +33,7 @@ dependencies:
   font_awesome_flutter:
   sqflite:
   path_provider:
+  image_picker:
 
 dev_dependencies:
   flutter_test:

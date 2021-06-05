@@ -3,14 +3,14 @@ enum Gender{ FEMALE, MALE }
 
 // Model for the unique contacts
 class Contact {
-  var id;
-  var image;
-  var firstName;
-  var lastName;
-  var company;
-  var title;
-  var mobile;
-  var gender;
+  int id;
+  String image;
+  String firstName;
+  String lastName;
+  String company;
+  String title;
+  String mobile;
+  Gender gender;
 
   Contact(
       {
