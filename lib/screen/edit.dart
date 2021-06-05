@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class EditContact extends StatefulWidget {
   @override
@@ -7,29 +10,136 @@ class EditContact extends StatefulWidget {
 }
 
 class _EditContactState extends State<EditContact> {
+
+
+  TextEditingController _firstNameController = TextEditingController();
+  TextEditingController _lastNameController = TextEditingController();
+  TextEditingController _companyController = TextEditingController();
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+
+  String hintGender = 'Male';
+  List<String> items = ['Male', 'female'];
   final _formKey = GlobalKey<FormState>();
+  late File _imageFile;
+  final picker = ImagePicker();
+
+  _openGallery() async{
+    final pickedFile = await picker.getImage(source: ImageSource.gallery, maxWidth: 200.0, maxHeight: 200.0 );
+    this.setState(() {
+      if(pickedFile != null){
+        _imageFile = File(pickedFile.path);
+      }else{
+        print('No image selected');
+      }
+    });
+  }
+
+  _openCamera() async{
+    final pickedFile = await picker.getImage(source: ImageSource.camera, maxWidth: 200.0, maxHeight: 200.0 );
+    this.setState(() {
+      if(pickedFile != null){
+        _imageFile = File(pickedFile.path);
+      }else{
+        print('No image selected');
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.close),
+        leading: GestureDetector(
+          onTap: () {
+            setState(() {
+              Navigator.pop(context);
+            });
+          },
+          child: Icon(
+            Icons.close,
+          ),
+        ),
         actions: [Icon(Icons.check)],
       ),
       body: Form(
         key: _formKey,
         child: ListView(
           children: [
+            //Circle Avatar
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return Container(
+                          height: 200,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Text('Photo',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16
+                                      ),),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex:1,
+                                child: ListTile(
+                                  leading: GestureDetector(
+                                    onTap: _openCamera,
+                                    child: Text('Take photo',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 16
+                                    ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: ListTile(
+                                  leading: GestureDetector(
+                                  onTap: _openGallery,
+                                    child: Text('Choose photo from gallery',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16
+                                      ),),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      });
+                },
+                child: CircleAvatar(
+                    radius: 36.0,
+                    backgroundColor: Colors.grey,
+                    // ignore: unnecessary_null_comparison
+                    child: _imageFile == null ? Icon(Icons.add_a_photo) : Image.file(_imageFile)),
+              ),
+            ),
+
+            //forms name
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Column(
                 children: [
                   TextFormField(
-                    // controller: nameController,
+                    controller: _firstNameController,
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Color(0xff464646),
-                        disabledBorder: OutlineInputBorder(
+                        enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Color(0xff464646)),
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(8.0),
@@ -38,7 +148,7 @@ class _EditContactState extends State<EditContact> {
                         hintStyle: GoogleFonts.poppins(fontSize: 12.0)),
                   ),
                   TextFormField(
-                    // controller: nameController,
+                    controller: _lastNameController,
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
                         filled: true,
@@ -59,7 +169,7 @@ class _EditContactState extends State<EditContact> {
               child: Column(
                 children: [
                   TextFormField(
-                    // controller: nameController,
+                    controller: _companyController,
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
                         filled: true,
@@ -73,7 +183,7 @@ class _EditContactState extends State<EditContact> {
                         hintStyle: GoogleFonts.poppins(fontSize: 12.0)),
                   ),
                   TextFormField(
-                    // controller: nameController,
+                    controller: _titleController,
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
                         filled: true,
@@ -93,13 +203,14 @@ class _EditContactState extends State<EditContact> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               child: TextFormField(
-                // controller: nameController,
+                controller: _phoneController,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   hintText: 'Phone',
-                  hintStyle: GoogleFonts.poppins(fontSize: 12.0) ,
+                  hintStyle: GoogleFonts.poppins(fontSize: 12.0),
                   prefixIcon: Container(
-                    padding: const EdgeInsets.only(top: 8.0, bottom: 8, left: 8, right: 16),
+                    padding: const EdgeInsets.only(
+                        top: 8.0, bottom: 8, left: 8, right: 16),
                     margin: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
                         border: Border(right: BorderSide(color: Colors.grey))),
@@ -118,15 +229,16 @@ class _EditContactState extends State<EditContact> {
             ),
             Padding(
               padding:
-              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
               child: TextFormField(
-                // controller: nameController,
+                controller: _emailController,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   hintText: 'Email',
-                  hintStyle: GoogleFonts.poppins(fontSize: 12.0) ,
+                  hintStyle: GoogleFonts.poppins(fontSize: 12.0),
                   prefixIcon: Container(
-                    padding: const EdgeInsets.only(top: 8.0, bottom: 8, left: 8, right: 24),
+                    padding: const EdgeInsets.only(
+                        top: 8.0, bottom: 8, left: 8, right: 24),
                     margin: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
                         border: Border(right: BorderSide(color: Colors.grey))),
@@ -145,15 +257,26 @@ class _EditContactState extends State<EditContact> {
             ),
             Padding(
               padding:
-              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               child: TextFormField(
                 // controller: nameController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  hintText: 'Gender',
-                  hintStyle: GoogleFonts.poppins(fontSize: 12.0) ,
+                  suffixIcon: PopupMenuButton(
+                    icon: const Icon(Icons.arrow_drop_down),
+                    onSelected: (String value) {
+                      hintGender = value;
+                    },
+                    itemBuilder: (BuildContext context) {
+                      return items.map<PopupMenuItem<String>>((String value) {
+                        return PopupMenuItem(child: Text(value), value: value);
+                      }).toList();
+                    },
+                  ),
+                  hintStyle: GoogleFonts.poppins(fontSize: 12.0),
                   prefixIcon: Container(
-                    padding: const EdgeInsets.only(top: 8.0, bottom: 8, left: 8, right: 24),
+                    padding: const EdgeInsets.only(
+                        top: 8.0, bottom: 8, left: 8, right: 24),
                     margin: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
                         border: Border(right: BorderSide(color: Colors.grey))),
@@ -170,8 +293,6 @@ class _EditContactState extends State<EditContact> {
                 ),
               ),
             ),
-
-
           ],
         ),
       ),
