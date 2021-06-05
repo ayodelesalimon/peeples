@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:peeples/model/contact_model.dart';
 
 class MyContactDetail extends StatefulWidget {
+  final contactDetails;
+
+  const MyContactDetail({Key key, this.contactDetails}) : super(key: key);
+
   @override
-  _MyContactDetailState createState() => _MyContactDetailState();
+  _MyContactDetailState createState() => _MyContactDetailState(contactDetails);
 }
 
 class _MyContactDetailState extends State<MyContactDetail> {
   bool _value = false;
+  final Contact contactDetails;
+
+  _MyContactDetailState(this.contactDetails);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,11 +51,10 @@ class _MyContactDetailState extends State<MyContactDetail> {
                         children: [
                           CircleAvatar(
                             radius: 36.0,
-                            backgroundImage:
-                                NetworkImage('https://cutt.ly/gnkXkbj'),
+                           child: Image.asset(contactDetails.image),
                           ),
                           SizedBox(height: 16.0),
-                          Text('Ayodele Salimon',
+                          Text('${contactDetails.firstName} ${contactDetails.lastName}',
                               style: GoogleFonts.poppins(
                                   textStyle:
                                       Theme.of(context).textTheme.headline4,

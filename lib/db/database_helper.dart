@@ -67,6 +67,7 @@ class DatabaseHelper {
   Future<int> insertContact(Contact contact) async {
     Database db = await this.database;
     var result = await db.insert(contactTable, contact.toMap());
+    print('Insert action just happened $result');
     return result;
   }
 
