@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:peeples/model/contact_model.dart';
+import 'package:peeples/screen/edit_contact.dart';
 
 class MyContactDetail extends StatefulWidget {
   final contactDetails;
@@ -16,11 +17,13 @@ class MyContactDetail extends StatefulWidget {
 class _MyContactDetailState extends State<MyContactDetail> {
   bool _value = false;
   final Contact contactDetails;
+  bool isThemeBGColor = false;
 
   _MyContactDetailState(this.contactDetails);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: isThemeBGColor ? Colors.white : Colors.black,
       body: SafeArea(
         child: Column(
           // mainAxisSize: MainAxisSize.max,
@@ -33,7 +36,7 @@ class _MyContactDetailState extends State<MyContactDetail> {
                   leading: Icon(Icons.arrow_back),
                   onChanged: (value) {
                     setState(() {
-                      _value = value;
+                      isThemeBGColor = value;
                     });
                   },
                   visualDensity: VisualDensity.comfortable,
@@ -51,16 +54,21 @@ class _MyContactDetailState extends State<MyContactDetail> {
                         children: [
                           CircleAvatar(
                             radius: 36.0,
-                           child: Image.asset(contactDetails.image),
+                            child: Image.asset(contactDetails.image),
                           ),
                           SizedBox(height: 16.0),
-                          Text('${contactDetails.firstName} ${contactDetails.lastName}',
-                              style: GoogleFonts.poppins(
-                                  textStyle:
-                                      Theme.of(context).textTheme.headline4,
-                                  letterSpacing: 1)),
                           Text(
-                            'Flutter Developer @ SBSC',
+                            '${contactDetails.title} ${contactDetails.firstName} ${contactDetails.lastName}',
+                            style: GoogleFonts.poppins(
+                                textStyle:
+                                    Theme.of(context).textTheme.headline4,
+                                letterSpacing: 1,
+                                color: isThemeBGColor
+                                    ? Colors.white
+                                    : Colors.black),
+                          ),
+                          Text(
+                            contactDetails.company,
                             style: GoogleFonts.poppins(
                                 fontSize: 14, letterSpacing: 1),
                           ),
@@ -73,12 +81,12 @@ class _MyContactDetailState extends State<MyContactDetail> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '080 353 53535',
+                                    contactDetails.mobile,
                                     style: GoogleFonts.poppins(
                                         fontSize: 20, letterSpacing: 1),
                                   ),
                                   Text(
-                                    'ayodelesalimon@gmail.com',
+                                    '${contactDetails.firstName}@gmail.com',
                                     style: GoogleFonts.poppins(
                                         fontSize: 14, letterSpacing: 1),
                                   ),
@@ -143,7 +151,12 @@ class _MyContactDetailState extends State<MyContactDetail> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: FaIcon(FontAwesomeIcons.edit),
+                        child: GestureDetector(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => EditContact())),
+                            child: FaIcon(FontAwesomeIcons.edit)),
                       ),
                       Text(
                         'Edit contact',

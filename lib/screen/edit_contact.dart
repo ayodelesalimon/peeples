@@ -94,7 +94,8 @@ class _EditContactState extends State<EditContact> {
                                 topRight: Radius.circular(8.0),
                                 topLeft: Radius.circular(8.0))),
                         hintText: 'First Name',
-                        hintStyle: GoogleFonts.poppins(fontSize: 12.0)),
+                        hintStyle: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white )),
+                    style: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white ),
                     onChanged: (value) {
                       updateFirstName();
                     },
@@ -111,7 +112,8 @@ class _EditContactState extends State<EditContact> {
                                 bottomLeft: Radius.circular(8.0),
                                 bottomRight: Radius.circular(8.0))),
                         hintText: 'Last Name',
-                        hintStyle: GoogleFonts.poppins(fontSize: 12.0)),
+                        hintStyle: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white )),
+                    style: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white ),
                     onChanged: (value) {
                       updateLastName();
                     },
@@ -135,7 +137,8 @@ class _EditContactState extends State<EditContact> {
                                 topRight: Radius.circular(8.0),
                                 topLeft: Radius.circular(8.0))),
                         hintText: 'Company',
-                        hintStyle: GoogleFonts.poppins(fontSize: 12.0)),
+                        hintStyle: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white)),
+                    style: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white ),
                     onChanged: (value) {
                       updateCompany();
                     },
@@ -152,7 +155,8 @@ class _EditContactState extends State<EditContact> {
                                 bottomLeft: Radius.circular(8.0),
                                 bottomRight: Radius.circular(8.0))),
                         hintText: 'Title',
-                        hintStyle: GoogleFonts.poppins(fontSize: 12.0)),
+                        hintStyle: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white )),
+                    style: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white ),
                     onChanged: (value) {
                       updateTitle();
                     },
@@ -168,7 +172,6 @@ class _EditContactState extends State<EditContact> {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   hintText: 'Phone',
-                  hintStyle: GoogleFonts.poppins(fontSize: 12.0),
                   prefixIcon: Container(
                     padding: const EdgeInsets.only(
                         top: 8.0, bottom: 8, left: 8, right: 16),
@@ -177,7 +180,7 @@ class _EditContactState extends State<EditContact> {
                         border: Border(right: BorderSide(color: Colors.grey))),
                     child: Text(
                       'Mobile',
-                      style: GoogleFonts.poppins(fontSize: 12.0),
+                      style: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white),
                     ),
                   ),
                   filled: true,
@@ -185,7 +188,8 @@ class _EditContactState extends State<EditContact> {
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Color(0xff464646)),
                       borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                ),
+                    hintStyle: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white )),
+                style: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white ),
                 onChanged: (value) {
                   updateMobile();
                 },
@@ -199,7 +203,6 @@ class _EditContactState extends State<EditContact> {
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: 'Email',
-                  hintStyle: GoogleFonts.poppins(fontSize: 12.0),
                   prefixIcon: Container(
                     padding: const EdgeInsets.only(
                         top: 8.0, bottom: 8, left: 8, right: 24),
@@ -208,7 +211,7 @@ class _EditContactState extends State<EditContact> {
                         border: Border(right: BorderSide(color: Colors.grey))),
                     child: Text(
                       'Work',
-                      style: GoogleFonts.poppins(fontSize: 12.0),
+                      style: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white),
                     ),
                   ),
                   filled: true,
@@ -216,7 +219,8 @@ class _EditContactState extends State<EditContact> {
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Color(0xff464646)),
                       borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                ),
+                    hintStyle: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white )),
+                style: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white ),
               ),
             ),
             Padding(
@@ -238,7 +242,6 @@ class _EditContactState extends State<EditContact> {
                     },
                   ),
                   hintText: 'Male',
-                  hintStyle: GoogleFonts.poppins(fontSize: 12.0),
                   prefixIcon: Container(
                     padding: const EdgeInsets.only(
                         top: 8.0, bottom: 8, left: 8, right: 24),
@@ -247,7 +250,7 @@ class _EditContactState extends State<EditContact> {
                         border: Border(right: BorderSide(color: Colors.grey))),
                     child: Text(
                       'Gender',
-                      style: GoogleFonts.poppins(fontSize: 12.0),
+                      style: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white),
                     ),
                   ),
                   filled: true,
@@ -255,7 +258,8 @@ class _EditContactState extends State<EditContact> {
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Color(0xff464646)),
                       borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                ),
+                    hintStyle: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white )),
+                style: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white ),
                 onChanged: (value) {
                   updateGender();
                 },
@@ -307,14 +311,17 @@ class _EditContactState extends State<EditContact> {
         print('File type ${image.path.toString().split('cache/')[1]}');
         contact.image = image.path.toString();
       });
+    } else {
+      contact.image = 'assets/images/avatarpic.png';
     }
   }
 
   // Save data to database
   void _save() async {
-    moveToLastScreen();
-
     int result;
+    if(contact.image == null) {
+      contact.image = 'assets/images/avatarpic.png';
+    }
     if (contact.id != null) {
       // Case 1: Update operation
       result = await helper.updateContact(contact);
@@ -330,6 +337,7 @@ class _EditContactState extends State<EditContact> {
       // Failure
       _showAlertDialo('Status', 'Problem Saving Todo');
     }
+    moveToLastScreen();
   }
 
   void _delete() async {

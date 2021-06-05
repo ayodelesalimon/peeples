@@ -5,7 +5,7 @@ import 'package:peeples/model/contact_model.dart';
 import 'package:peeples/screen/contact_detail.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'edit.dart';
+import 'add_contact.dart';
 
 class HomeScreen extends StatefulWidget {
   final Contact contact;
@@ -36,13 +36,16 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var dropHolder = dropping[0];
 
-    if (contactList == null) {
-      setState(() {
-        contactList = <Contact>[];
-        updateListView();
-      });
-
-    }
+    // if (contactList == null) {
+    //   setState(() {
+    //     contactList = <Contact>[];
+    //     updateListView();
+    //   });
+    // } else {
+    //   setState(() {
+    //     updateListView();
+    //   });
+    // }
     return WillPopScope(
       onWillPop: () {
         return moveToLastScreen();
@@ -51,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: isThemeBGColor ? Colors.black : Colors.white,
           floatingActionButton: FloatingActionButton(
             onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => EditContact())),
+                MaterialPageRoute(builder: (context) => AddContact())),
             child: Icon(Icons.add),
           ),
           appBar: AppBar(
@@ -121,6 +124,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget getContactListView() {
+    if (contactList == null) {
+      setState(() {
+        contactList = <Contact>[];
+        updateListView();
+      });
+    } else {
+      setState(() {
+        updateListView();
+      });
+    }
     return contactList == null || contactList.isEmpty
         ? Center(
             child: Text(

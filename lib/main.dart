@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peeples/screen/contact_detail.dart';
-import 'package:peeples/screen/edit.dart';
+import 'package:peeples/screen/add_contact.dart';
 import 'package:peeples/screen/home.dart';
 
 void main() {
